@@ -40,7 +40,7 @@ This function should only modify configuration layer settings."
      go
      (solidity :variables
                solidity-flycheck-solc-checker-active t
-               ;; solidity-flycheck-solium-checker-active t
+              solidity-flycheck-solium-checker-active t
                )
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -49,7 +49,8 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      (auto-completion :variables
                        auto-completion-enable-help-tooltip t
-                       auto-completion-enable-snippets-in-popup t)
+                       auto-completion-enable-snippets-in-popup t
+                   )
      better-defaults
      emacs-lisp
      git
@@ -74,6 +75,11 @@ This function should only modify configuration layer settings."
      (plantuml
       :variables plantuml-jar-path "/home/xuanyuan/.spacemacs.d/jar/plantuml.jar"
       org-plantuml-jar-path "/home/xuanyuan/.spacemacs.d/jar/plantuml.jar")
+     web-beautify
+     (json :variables
+           json-fmt-tool 'web-beautify
+           json-fmt-on-save t
+           json-backend 'lsp)
      )
 
 
@@ -85,7 +91,9 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      solidity-mode
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -588,7 +596,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(plantuml-mode csv-mode yaml-mode vmd-mode toml-mode ron-mode racer rust-mode flycheck-rust cargo lsp-latex company-reftex company-math math-symbol-lists company-auctex auctex company-solidity company-quickhelp monokai-theme xterm-color vterm terminal-here shell-pop orgit-forge orgit org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-contrib org org-cliplink multi-term gnuplot git-gutter-fringe+ fringe-helper git-gutter+ evil-org eshell-z eshell-prompt-extras esh-help browse-at-remote web-mode typescript-mode emmet-mode web-beautify tern prettier-js npm-mode nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd add-node-modules-path helm-gtags godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc ggtags flycheck-golangci-lint dap-mode lsp-treemacs bui lsp-mode markdown-mode counsel-gtags counsel swiper ivy company-go go-mode company ws-butler writeroom-mode visual-fill-column winum volatile-highlights vi-tilde-fringe uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil treemacs cfrs pfuture posframe toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons memoize all-the-icons spaceline powerline restart-emacs request rainbow-delimiters quickrun popwin persp-mode password-generator paradox spinner overseer f org-superstar open-junk-file nameless multi-line shut-up macrostep lorem-ipsum link-hint inspector info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-purpose window-purpose imenu-list helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio flycheck-package package-lint flycheck pkg-info epl flycheck-elsa flx-ido flx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection annalist evil-cleverparens smartparens evil-args evil-anzu anzu eval-sexp-fu emr iedit clang-format projectile paredit list-utils elisp-slime-nav editorconfig dumb-jump s drag-stuff dired-quick-sort define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol ht dash auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup which-key use-package pcre2el hydra lv hybrid-mode evil goto-chg dotenv-mode diminish bind-map bind-key async)))
+   '(flymake-solidity plantuml-mode csv-mode yaml-mode vmd-mode toml-mode ron-mode racer rust-mode flycheck-rust cargo lsp-latex company-reftex company-math math-symbol-lists company-auctex auctex company-solidity company-quickhelp monokai-theme xterm-color vterm terminal-here shell-pop orgit-forge orgit org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-contrib org org-cliplink multi-term gnuplot git-gutter-fringe+ fringe-helper git-gutter+ evil-org eshell-z eshell-prompt-extras esh-help browse-at-remote web-mode typescript-mode emmet-mode web-beautify tern prettier-js npm-mode nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd add-node-modules-path helm-gtags godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc ggtags flycheck-golangci-lint dap-mode lsp-treemacs bui lsp-mode markdown-mode counsel-gtags counsel swiper ivy company-go go-mode company ws-butler writeroom-mode visual-fill-column winum volatile-highlights vi-tilde-fringe uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil treemacs cfrs pfuture posframe toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons memoize all-the-icons spaceline powerline restart-emacs request rainbow-delimiters quickrun popwin persp-mode password-generator paradox spinner overseer f org-superstar open-junk-file nameless multi-line shut-up macrostep lorem-ipsum link-hint inspector info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-purpose window-purpose imenu-list helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio flycheck-package package-lint flycheck pkg-info epl flycheck-elsa flx-ido flx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection annalist evil-cleverparens smartparens evil-args evil-anzu anzu eval-sexp-fu emr iedit clang-format projectile paredit list-utils elisp-slime-nav editorconfig dumb-jump s drag-stuff dired-quick-sort define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol ht dash auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup which-key use-package pcre2el hydra lv hybrid-mode evil goto-chg dotenv-mode diminish bind-map bind-key async)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
